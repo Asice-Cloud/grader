@@ -49,8 +49,8 @@ def test_api(test):
     return weight
 
 if __name__ == "__main__":
-   
-    standard = load_standard("./tests/standard.json")
+    standardFile = "./tests/standard.json"
+    standard = load_standard(standardFile)
     total_score = 0
     max_score = 0
     for test in standard["tests"]:
