@@ -1,0 +1,75 @@
+{
+    "tests": [
+        {
+            "url": "http://localhost:8088/user/login",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "query_params": {
+                "username": "testuser",
+                "password": "testpassword"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "message": "Hello World"
+                }
+            },
+            "weight": 25
+        },
+        {
+            "url": "http://localhost:8088/user/register",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "username": "testuser",
+                "password": "testpassword"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "message": "User created"
+                }
+            },
+            "weight": 25
+        },
+        {
+            "url": "http://localhost:8088/user/update",
+            "method": "PUT",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "username": "testuser",
+                "password": "newpassword"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "message": "User updated"
+                }
+            },
+            "weight": 25
+        },
+        {
+            "url": "http://localhost:8088/user/delete",
+            "method": "DELETE",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "username": "testuser"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "message": "User deleted"
+                }
+            },
+            "weight": 25
+        }
+    ]
+}
