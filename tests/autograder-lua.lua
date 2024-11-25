@@ -73,7 +73,11 @@ local function test_api(test)
 end
 
 local function main()
-    standard_file = "./tests/standard.json"
+   if #arg ~= 1 then
+        print("Usage: lua autograder-lua.lua <standard.json>")
+        os.exit(1)
+    end
+    local standard_file = arg[1]
     local standard = load_standard(standard_file)
     local total_score = 0
     local max_score = 0

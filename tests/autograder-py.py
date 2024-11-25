@@ -49,8 +49,12 @@ def test_api(test):
     return weight
 
 if __name__ == "__main__":
-    standardFile = "./tests/standard.json"
-    standard = load_standard(standardFile)
+    if len(sys.argv) != 2:
+        print("Usage: api_test.py <standard.json>")
+        sys.exit(1)
+
+    standard_file = sys.argv[1]
+    standard = load_standard(standard_file)
     total_score = 0
     max_score = 0
     for test in standard["tests"]:

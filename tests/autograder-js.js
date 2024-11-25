@@ -54,7 +54,12 @@ async function testApi(test) {
 }
 
 async function main() {
-    standardFile = "./tests/standard.json"
+    if (process.argv.length !== 3) {
+        console.log('Usage: node autograder.js <standard.json>');
+        process.exit(1);
+    }
+
+    const standardFile = process.argv[2];
     const standard = loadStandard(standardFile);
     let totalScore = 0;
     let maxScore = 0;
