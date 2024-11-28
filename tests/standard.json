@@ -16,7 +16,7 @@
                     "message": "Hello World"
                 }
             },
-            "weight": 25
+            "weight": 20
         },
         {
             "url": "http://localhost:8088/user/register",
@@ -34,7 +34,7 @@
                     "message": "User created"
                 }
             },
-            "weight": 25
+            "weight": 20
         },
         {
             "url": "http://localhost:8088/user/update",
@@ -52,7 +52,7 @@
                     "message": "User updated"
                 }
             },
-            "weight": 25
+            "weight": 20
         },
         {
             "url": "http://localhost:8088/user/delete",
@@ -69,7 +69,25 @@
                     "message": "User deleted"
                 }
             },
-            "weight": 25
+            "weight": 20
+        },
+        {
+            "url":"http://localhost:8088/data/generate",
+            "method":"GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "query_params": {
+                "size":1000
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "message": "Data generated"
+                }
+            },
+            "count":1000,
+            "weight": 20
         }
     ]
 }
