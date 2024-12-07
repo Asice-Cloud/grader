@@ -2,6 +2,9 @@ import aiohttp
 import asyncio
 import json
 import sys
+from colorama import init,Fore,Style
+
+init(autoreset=True)
 
 def load_standard(filename):
     with open(filename, 'r') as f:
@@ -18,45 +21,63 @@ async def make_request(session, test):
     async with session.request(method, url, headers=headers, json=payload, params=query_params) as response:
         expected_status = test["response"]["status"]
         if response.status != expected_status:
-            print(f"Score: 0\nReason: Expected status code {expected_status}, but got {response.status}")
+            print(f"{Fore.RED}WRONG:Reason: Expected status code {expected_status}, but got {response.status}")
             return 0
 
         try:
             data = await response.json()
         except aiohttp.ContentTypeError:
-            print("Score: 0\nReason: Response is not a valid JSON")
+            print(f"{Fore.RED}WRONG:Reason: Response is not a valid JSON")
             return 0
 
         expected_body = test["response"]["body"]
-        for key, value in expected_body.items():
-            if data.get(key) != value:
-                print(f"Score: 0\nReason: Expected '{key}' to be '{value}', but got '{data.get(key)}'")
-                return 0
+        if not compare_json(data, expected_body):
+            print(f"{Fore.RED}WRONG:Reason: Response JSON does not match expected JSON")
+            return 0
 
         return weight
 
+def compare_json(actual,expected):
+    if isinstance(expected, dict):
+        for key, value in expected.items():
+            if key not in actual or not compare_json(actual[key], value):
+                return False
+    elif isinstance(expected, list):
+        if len(actual) != len(expected):
+            return False
+        for item_actual, item_expected in zip(actual, expected):
+            if not compare_json(item_actual, item_expected):
+                return False
+    else:
+        return actual == expected
+    return True
+
 async def test_api(test):
+    print("Now testing",test["url"])
     count = test.get("count", 1)
     async with aiohttp.ClientSession() as session:
         tasks = [make_request(session, test) for _ in range(count)]
         results = await asyncio.gather(*tasks)
-    return sum(results)/count
+    re = sum(results)/count
+    print(f"Score: {re}\n")
+    return re
 
 async def main():
     if len(sys.argv) != 2:
-        print("Usage: api_test.py <standard.json>")
+        print(f"{Fore.RED}Usage: api_test.py <standard.json>")
         sys.exit(1)
 
     standard_file = sys.argv[1]
     standard = load_standard(standard_file)
     total_score = 0
     max_score = 0
+    
 
     for test in standard["tests"]:
         max_score += test.get("weight", 0)
         total_score += await test_api(test)
 
-    print(f"Total Score: {total_score}/{max_score}")
+    print(f"\n{Fore.CYAN}Total Score: {total_score}/{max_score}")
 
 if __name__ == "__main__":
     asyncio.run(main())

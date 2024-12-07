@@ -31,7 +31,11 @@
             "response": {
                 "status": 200,
                 "body": {
-                    "message": "User created"
+                    "message": "User created",
+                    "user": {
+                        "username": "testuser",
+                        "password": "testpassword"
+                    }
                 }
             },
             "weight": 20
@@ -72,13 +76,13 @@
             "weight": 20
         },
         {
-            "url":"http://localhost:8088/data/generate",
-            "method":"GET",
+            "url": "http://localhost:8088/data/generate",
+            "method": "GET",
             "headers": {
                 "Content-Type": "application/json"
             },
             "query_params": {
-                "size":1000
+                "size": 1000
             },
             "response": {
                 "status": 200,
@@ -86,7 +90,7 @@
                     "message": "Data generated"
                 }
             },
-            "count":1000,
+            "count": 1000,
             "weight": 20
         }
     ]

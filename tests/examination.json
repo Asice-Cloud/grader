@@ -1,0 +1,220 @@
+{
+    "tests": [
+        {
+            "url": "http://localhost:8088/api/register",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "name": "testuser",
+                "password": "testpassword",
+                "student_id": "123456"
+            },
+            "response": {
+                "status": 200
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/login",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "student_id": "123456",
+                "password": "testpassword"
+            },
+            "response": {
+                "status": 200
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/logout",
+            "method": "DELETE",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "response": {
+                "status": 200
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/userinfo",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "student_name": "testuser",
+                    "student_id": "123456"
+                }
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/user/courses",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "query_params": {
+                "page": 1,
+                "limit": 10,
+                "course_name": "math",
+                "teachers": [
+                    "teacher1",
+                    "teacher2"
+                ],
+                "time": "Wed.3-4",
+                "location": "B404"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "total": 100,
+                    "courses": [
+                        {
+                            "course_name": "math",
+                            "teacher": "teacher1",
+                            "time": "Wed.3-4",
+                            "location": "B404"
+                        },
+                        {
+                            "course_name": "math",
+                            "teacher": "teacher2",
+                            "time": "Wed.3-4",
+                            "location": "B404"
+                        }
+                    ]
+                }
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/user/courses/11",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "id": 1,
+                    "course_name": "tenzor的奇妙冒险",
+                    "capacity": 100,
+                    "teachers": [
+                        "zao",
+                        "bobo"
+                    ],
+                    "time": "2024-01-02",
+                    "location": "B204"
+                }
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/user/choose-courses",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "course_id": 1
+            },
+            "response": {
+                "status": 200
+            },
+            "count": 10000,
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/user/courses",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "query_params": {
+                "page": 1,
+                "limit": 10
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "total": 10,
+                    "courses": [
+                        {
+                            "id": 1,
+                            "course_name": "tenzor的奇妙冒险",
+                            "capacity": 100,
+                            "teachers": [
+                                "zao",
+                                "bobo"
+                            ],
+                            "time": "Tues. 3-4",
+                            "location": "B204"
+                        },
+                        {
+                            "id": 2,
+                            "course_name": "zao's 前端课",
+                            "capacity": 100,
+                            "teachers": [
+                                "zao",
+                                "bobo"
+                            ],
+                            "time": "Wed. 3-4",
+                            "location": "B204"
+                        }
+                    ]
+                }
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/user/schedule",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "courses": {
+                        "Mon": [
+                            {
+                                "id": 44,
+                                "course_name": "做e时代的主人",
+                                "teachers": [
+                                    "zao",
+                                    "bobo"
+                                ],
+                                "time": "Mon. 1-2",
+                                "location": "A102"
+                            }
+                        ]
+                    }
+                }
+            },
+            "weight": 20
+        },
+        {
+            "url": "http://localhost:8088/api/user/course/1",
+            "method": "GET",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "success": true
+                }
+            },
+            "weight": 20
+        }
+    ]
+}
