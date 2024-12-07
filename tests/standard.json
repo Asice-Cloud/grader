@@ -31,7 +31,6 @@
             "response": {
                 "status": 200,
                 "body": {
-                    "message": "User created",
                     "user": {
                         "username": "testuser",
                         "password": "testpassword"
@@ -53,7 +52,10 @@
             "response": {
                 "status": 200,
                 "body": {
-                    "message": "User updated"
+                    "user": {
+                        "username": "testuser",
+                        "password": "newpassword"
+                    }
                 }
             },
             "weight": 20

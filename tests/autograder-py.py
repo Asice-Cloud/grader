@@ -53,13 +53,13 @@ def compare_json(actual,expected):
     return True
 
 async def test_api(test):
-    print("Now testing",test["url"])
+    print(f"{Fore.LIGHTGREEN_EX}Now testing",f"{Fore.LIGHTWHITE_EX}"+test["url"])
     count = test.get("count", 1)
     async with aiohttp.ClientSession() as session:
         tasks = [make_request(session, test) for _ in range(count)]
         results = await asyncio.gather(*tasks)
     re = sum(results)/count
-    print(f"Score: {re}\n")
+    print(f"{Fore.LIGHTYELLOW_EX}Score: {re}\n")
     return re
 
 async def main():
@@ -77,7 +77,14 @@ async def main():
         max_score += test.get("weight", 0)
         total_score += await test_api(test)
 
-    print(f"\n{Fore.CYAN}Total Score: {total_score}/{max_score}")
+    print(f"\n{Fore.LIGHTMAGENTA_EX}Total Score: {total_score}/{max_score}")
 
+    pe = total_score/max_score *100
+    if pe<=50:
+        print(f"{Fore.LIGHTBLUE_EX}percentage_value: "+f"{Fore.LIGHTRED_EX}{pe}")
+    elif pe<=80:
+        print(f"{Fore.LIGHTBLUE_EX}percentage_value: "+f"{Fore.LIGHTGREEN_EX}{pe}")
+    else:
+        print(f"{Fore.LIGHTBLUE_EX}percentage_value: "+f"{Fore.LIGHTMAGENTA_EX}{pe}")
 if __name__ == "__main__":
     asyncio.run(main())
