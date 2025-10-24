@@ -12,7 +12,7 @@ func main() {
 	gin.SetMode(config.Config.AppMode)
 	srv := router.NewServer()
 
-	if err := srv.ListenAndServe(); err != nil {
+	if err := srv.ListenkndServe(); err != nil {
 		fmt.Printf("fail to init server: %s\n", err.Error())
 		panic(err)
 	}
